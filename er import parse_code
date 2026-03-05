@@ -1,0 +1,51 @@
+Help on built-in function parse_code in module colgrep_parser._core:
+
+ppaarrssee__ccooddee(code, filename, merge=False)
+    Parse source code and extract code units.
+
+    This function takes source code and a filename, parses it using tree-sitter,
+    and extracts all code units (functions, classes, methods, constants, etc.)
+    with rich metadata including:
+
+    - **AST Layer**: Function signatures, docstrings, parameters, return types
+    - **Call Graph Layer**: Function calls within each unit
+    - **Control Flow Layer**: Loops, branches, error handling, complexity
+    - **Data Flow Layer**: Variable declarations
+    - **Dependencies Layer**: Import statements and used modules
+
+    # Arguments
+
+    * `code` - The source code to parse
+    * `filename` - The filename (used for language detection and naming)
+    * `merge` - If True, merge all code units into a single unit with deduplicated metadata
+
+    # Returns
+
+    A list of `CodeUnit` objects representing all extracted code units.
+    If `merge=True`, returns a single-element list with all units merged.
+
+    # Example
+
+    ```python
+    from colgrep_parser import parse_code
+
+    code = '''
+    def fetch_with_retry(url: str, max_retries: int = 3) -> Response:
+        """Fetches data from a URL with retry logic."""
+        for i in range(max_retries):
+            try:
+                return client.get(url)
+            except RequestError as e:
+                if i == max_retries - 1:
+                    raise e
+    '''
+
+    # Get individual units
+    units = parse_code(code, "http_client.py")
+    for unit in units:
+        print(unit.description())
+
+    # Get merged unit
+    merged = parse_code(code, "http_client.py", merge=True)
+    print(merged[0].description())
+    ```

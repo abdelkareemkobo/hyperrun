@@ -1,10 +1,56 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+# nbdev specific
+_proc/
+_quarto_files.txt
+.nbdev_quarto
+
+# Quarto/Website build
+_quarto.yml.bak
+site/
+.quarto/
 
 # Virtual environments
-.venv
+.venv/
+venv/
+.env/
+env/
+.ENV/
+
+# Python build and distribution
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.env
+.env.local
+.env.*.local
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS-specific files
+Thumbs.db
+*.tmp
+
+# Logs
+*.log
