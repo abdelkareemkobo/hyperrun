@@ -11,17 +11,17 @@ hx_on__htmx_after_swap="this.scrollTop = this.scrollHeight"
 
 ```
 
-- Switch the Embedding Model
-- Automatic install of the ColGrep when codebase changed and nbdev_prepare and export!
-- Reindex when deploy to github!
-- store BYOK securly in browswer cookies
-- citatinos
-- make the delete working
-- add history feature based on lisette
-- total cost,show the model name and provider under the footer of the icon
-- add sources(cites )
+- [] Switch the Embedding Model
+- [] Automatic install of the ColGrep when codebase changed and nbdev_prepare and export!
+- [] Reindex when deploy to github!
+- [] store BYOK securly in browswer cookies
+- [] citatinos
+- [] make the delete working
+- [x] add history feature based on lisette
+- [x] total cost,show the model name and provider under the footer of the icon
+- [] add sources(cites )
+- [] Control the Personality of the Bot (Name, Icon,model..etc)
 
-### Colgrep_parser Features
 
 1. The merge=True option could be handy for getting a single summary per file, or you can keep individual code units for finer-grained retrieval
 2. The CodeUnit metadata (signatures, docstrings, calls, parameters) gives you rich context to pass alongside chunks to Lisette for better citations
