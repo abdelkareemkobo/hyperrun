@@ -2,8 +2,8 @@ project:
   output-dir: _docs
 
 website:
-  title: ""
+  title: "hyperrun"
   site-url: "/"
-  description: ""
+  description: "Add your description here"
   repo-branch: main
   repo-url: ""

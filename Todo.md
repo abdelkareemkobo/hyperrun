@@ -11,16 +11,15 @@ hx_on__htmx_after_swap="this.scrollTop = this.scrollHeight"
 
 ```
 
-
-1. Switch the Embedding Model
-1. Automatic install of the ColGrep when codebase changed and nbdev_prepare and export!
-1. Reindex when deploy to github!
-1. store BYOK securly in browswer cookies
-1. citatinos
-1. make the delete working
-1. add history feature based on lisette
-1. total cost,show the model name and provider under the footer of the icon 
-
+- Switch the Embedding Model
+- Automatic install of the ColGrep when codebase changed and nbdev_prepare and export!
+- Reindex when deploy to github!
+- store BYOK securly in browswer cookies
+- citatinos
+- make the delete working
+- add history feature based on lisette
+- total cost,show the model name and provider under the footer of the icon
+- add sources(cites )
 
 ### Colgrep_parser Features
 
@@ -56,3 +55,13 @@ colgrep -e "^def insert_article" -k 1 -c
 
 - `"""Insert new article"""` → scores low
 - `"""Insert a new article record into the database for a given website"""` → scores high
+
+## Github Actions
+
+For HyperRun, a GitHub Action could automate the Doc Author setup:
+
+    On push → re-index the repo with colgrep init
+    Deploy the HyperRun server (e.g. to Railway, Fly.io, or a VPS)
+    Build docs with the embed snippet already included
+
+So the doc author's experience becomes: clone repo → add a .github/workflows/hyperrun.yml → push → everything works automatically.
