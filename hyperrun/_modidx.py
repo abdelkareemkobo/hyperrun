@@ -11,6 +11,7 @@ d = { 'settings': {'branch': 'main', 'doc_baseurl': '/', 'doc_host': '', 'git_ur
                              'hyperrun.ui.chat_widget': ('ui.html#chat_widget', 'hyperrun/ui.py'),
                              'hyperrun.ui.clear_messages': ('ui.html#clear_messages', 'hyperrun/ui.py'),
                              'hyperrun.ui.close_chat': ('ui.html#close_chat', 'hyperrun/ui.py'),
+                             'hyperrun.ui.embed_js': ('ui.html#embed_js', 'hyperrun/ui.py'),
                              'hyperrun.ui.home': ('ui.html#home', 'hyperrun/ui.py'),
                              'hyperrun.ui.model_options': ('ui.html#model_options', 'hyperrun/ui.py'),
                              'hyperrun.ui.save_settings': ('ui.html#save_settings', 'hyperrun/ui.py'),

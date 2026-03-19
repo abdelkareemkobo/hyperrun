@@ -3,7 +3,7 @@
 # %% auto #0
 __all__ = ['icons', 'chats', 'CHAT_CSS', 'app', 'rt', 'chat_content', 'chat_panel', 'chat_standalone', 'settings_panel',
            'save_settings', 'model_options', 'close_chat', 'clear_messages', 'user_bubble', 'ai_bubble_stream', 'ask',
-           'stream_response', 'chat_widget', 'home', 'startup']
+           'stream_response', 'chat_widget', 'home', 'embed_js', 'startup']
 
 # %% ../nbs/01_ui.ipynb #2c3e2af9
 from fasthtml.common import *
@@ -52,7 +52,11 @@ app, rt = fast_app(
 
 # %% ../nbs/01_ui.ipynb #bf30a118
 def chat_content(standalone=False):
-    box_cls = "w-full h-screen p-0 bg-base-100" if standalone else "modal-box w-11/12 max-w-4xl p-0 bg-base-100 border border-base-300 rounded-3xl shadow-[0_25px_80px_-20px_rgba(0,0,0,0.45)]"
+    box_cls = (
+        "w-full h-screen p-0 bg-base-100"
+        if standalone
+        else "modal-box w-11/12 max-w-4xl p-0 bg-base-100 border border-base-300 rounded-3xl shadow-[0_25px_80px_-20px_rgba(0,0,0,0.45)]"
+    )
     return Div(
         Div(cls="flex items-center justify-between px-6 py-5 border-b border-base-200")(
             Div(cls="flex items-center gap-3")(
@@ -79,7 +83,13 @@ def chat_content(standalone=False):
                     hx_target="#messages",
                     hx_swap="innerHTML",
                 ),
-                Label(
+                Button(
+                    icons("x", sz=16),
+                    cls="btn btn-ghost btn-sm btn-circle",
+                    onclick="window.parent.postMessage('hyperrun-close','*')",
+                )
+                if standalone
+                else Label(
                     icons("x", sz=16),
                     fr="chat-modal",
                     cls="btn btn-ghost btn-sm btn-circle",
@@ -88,8 +98,7 @@ def chat_content(standalone=False):
         ),
         Div(
             id="messages",
-            cls="overflow-y-auto overflow-x-hidden h-[75vh] px-6 py-5 space-y-4 bg-base-100"
-,
+            cls="overflow-y-auto overflow-x-hidden h-[75vh] px-6 py-5 space-y-4 bg-base-100",
         ),
         Div(cls="px-6 py-5 border-t border-base-200 bg-base-100 rounded-b-3xl")(
             Form(
@@ -110,7 +119,7 @@ def chat_content(standalone=False):
                 ),
             )
         ),
-        cls=box_cls
+        cls=box_cls,
     )
 
 
@@ -323,15 +332,34 @@ def chat_widget():
         ),
     )
 
+
 @rt("/")
 def home():
     return Titled("HyperRun", chat_widget())
 
 
+# %% ../nbs/01_ui.ipynb #0427fdd5
+@rt("/embed")
+def embed_js(req):
+    server = f"{req.url.scheme}://{req.url.netloc}"
+    js = f"""document.addEventListener('DOMContentLoaded',function(){{
+  document.body.insertAdjacentHTML('beforeend',
+    '<div style="position:fixed;bottom:24px;right:24px;z-index:9999">' +
+    '<iframe id="hr-frame" src="{server}/chat-standalone" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:48rem;max-width:94vw;height:80vh;border:none;border-radius:1.5rem;box-shadow:0 25px 80px -20px rgba(0,0,0,0.45);z-index:10000"></iframe>' +
+    '<button onclick="var f=document.getElementById(\\'hr-frame\\');f.style.display=f.style.display===\\'none\\'?\\'block\\':\\'none\\'" style="all:unset;cursor:pointer;background:#6366f1;color:white;padding:12px 24px;border-radius:999px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.2)">💬 Ask AI</button></div>');
+  window.addEventListener('message',function(e){{if(e.data==='hyperrun-close')document.getElementById('hr-frame').style.display='none'}});
+}});"""
+    return Response(js, media_type='application/javascript; charset=utf-8')
+
+
+
 # %% ../nbs/01_ui.ipynb #b4686078
 from .core import ensure_index
+
+
 @app.on_event("startup")
-async def startup(): await ensure_index()
+async def startup():
+    await ensure_index()
 
 
 # %% ../nbs/01_ui.ipynb #0c36f24f

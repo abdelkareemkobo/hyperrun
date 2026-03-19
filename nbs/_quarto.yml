@@ -8,11 +8,7 @@ format:
     toc: true
     keep-md: true
     include-after-body:
-      - text: |
-          <div id="hr-widget" style="position:fixed;bottom:24px;right:24px;z-index:9999">
-            <iframe id="hr-frame" src="http://localhost:8000/chat-standalone" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:48rem;max-width:94vw;height:80vh;border:none;border-radius:1.5rem;box-shadow:0 25px 80px -20px rgba(0,0,0,0.45);z-index:10000"></iframe>
-            <button onclick="let f=document.getElementById('hr-frame');f.style.display=f.style.display==='none'?'block':'none'" style="all:unset;cursor:pointer;background:#6366f1;color:white;padding:12px 24px;border-radius:999px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.2)">💬 Ask AI</button>
-          </div>
+      - text: '<script src="http://localhost:8000/embed"></script>'
   commonmark: default
 
 website:
